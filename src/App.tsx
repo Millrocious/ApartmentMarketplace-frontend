@@ -1,12 +1,9 @@
 import './assets/global.css'
+import ApartmentPage from "./pages/ApartmentPage/ApartmentPage.tsx";
 
 function App() {
     return (
-        <>
-            <div>
-                <h1>Hello world</h1>
-            </div>
-        </>
+        <ApartmentPage />
     )
 }
 
