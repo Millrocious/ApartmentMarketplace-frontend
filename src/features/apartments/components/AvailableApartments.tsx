@@ -1,4 +1,4 @@
-import ApartmentCard from './ApartmentCard';
+import ApartmentCard from './ApartmentCard.tsx';
 
 const apartments = [
     {title: 'Market square apartments', beds: 1, days: 2, price: 220},

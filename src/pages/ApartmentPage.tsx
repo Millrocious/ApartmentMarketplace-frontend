@@ -1,6 +1,6 @@
-import AvailableApartments from "./AvailableApartments.tsx";
-import RentForm from "./RentForm.tsx";
-import CurrentRent from "./CurrentRent.tsx";
+import AvailableApartments from "../features/apartments/components/AvailableApartments.tsx";
+import RentForm from "../features/apartments/components/RentForm.tsx";
+import CurrentRent from "../features/apartments/components/CurrentRent.tsx";
 
 const ApartmentPage = () => {
     return (
