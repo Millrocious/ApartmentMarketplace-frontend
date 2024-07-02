@@ -1,10 +1,14 @@
-import DefaultInputField from "../../../components/ui/InputField/DefaultInputField/DefaultInputField.tsx";
-import SolidButton from "../../../components/ui/Button/SolidButton/SolidButton.tsx";
-import {useState} from "react";
-import ApartmentService from "../services/ApartmentService.ts";
+import DefaultInputField from "../../../../components/ui/InputField/DefaultInputField/DefaultInputField.tsx";
+import SolidButton from "../../../../components/ui/Button/SolidButton/SolidButton.tsx";
+import {FormEvent, useState} from "react";
+import ApartmentService from "../../services/ApartmentService.ts";
 import axios from "axios";
 
-const RentForm = () => {
+interface RentFormProps {
+    onApartmentAdded: () => void;
+}
+
+const RentForm = (props: RentFormProps) => {
     const [name, setName] = useState<string>('');
     const [rooms, setRooms] = useState<number>(1);
     const [price, setPrice] = useState<number>(0);
@@ -12,7 +16,7 @@ const RentForm = () => {
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<boolean>(false);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError(null);
         setSuccess(false);
@@ -38,6 +42,7 @@ const RentForm = () => {
             setRooms(1);
             setPrice(0);
             setDescription('');
+            props.onApartmentAdded();
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {
                 setError(error.response.data.message || 'An error occurred while adding the apartment.');
@@ -52,7 +57,7 @@ const RentForm = () => {
             <h2 className="text-xl font-semibold mb-4">Create a new apartment listing</h2>
             <div className="bg-gray-200 border-2 border-gray-300 rounded-xl p-8">
                 <form onSubmit={handleSubmit}>
-                    <div className="flex flex-wrap items-end gap-8">
+                    <div className="flex flex-wrap gap-4">
                         <DefaultInputField
                             label="Name"
                             type="text"
@@ -81,7 +86,7 @@ const RentForm = () => {
                             value={description}
                             onChange={(value) => setDescription(value)}
                         />
-                        <SolidButton text="Add Apartment" type="submit" color="green" />
+                        <SolidButton text="Add Apartment" type="submit" color="green"/>
                     </div>
                 </form>
                 {error && <p className="text-red-500 mt-4">{error}</p>}

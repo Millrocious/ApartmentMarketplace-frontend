@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {Apartment} from "../models/Apartment.ts";
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'http://localhost:5035/api';
 
 export type SortOrder = 'asc' | 'desc';
 
@@ -9,17 +9,17 @@ class ApartmentService {
     async getApartments(sortBy?: SortOrder, rooms?: number): Promise<Apartment[]> {
         try {
             const url = `${API_URL}/apartments`;
-            const params: Record<string, string | number> = {};
+            const params = new URLSearchParams();
 
             if (sortBy) {
-                params.price = sortBy;
+                params.append('price', sortBy);
             }
             if (rooms) {
-                params.rooms = rooms;
+                params.append('rooms', rooms.toString());
             }
 
-            const response = await axios.get(url, { params } );
-            return response.data;
+            const response = await axios.get(url, { params });
+            return response.data as Apartment[];
         } catch (error) {
             console.error('Error fetching apartments:', error);
             throw error;

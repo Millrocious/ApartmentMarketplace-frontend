@@ -1,19 +1,25 @@
 interface ButtonProps {
     text: string;
-    onClick: () => void;
+    onClick?: () => void;
+    rounded?: boolean;
     color: 'blue' | 'red' | 'green';
 }
 
-const SolidButton = ({ text, onClick, color }: ButtonProps) => {
+const SolidButton = ({text, onClick, rounded = false, color}: ButtonProps) => {
     const colorClasses = {
-        blue: 'bg-blue-500',
-        red: 'bg-red-500',
-        green: 'bg-green-500',
+        blue: 'bg-blue-300',
+        red: 'bg-red-300',
+        green: 'bg-lime-300',
     };
 
     return (
         <button
-            className={`px-4 py-2 ${colorClasses[color]} text-white rounded`}
+            className={`
+            px-4 py-2 
+            ${colorClasses[color]} 
+            ${rounded ? 'rounded-full' : 'rounded-lg'} 
+            text-white rounded
+            `}
             onClick={onClick}
         >
             {text}
