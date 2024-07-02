@@ -20,10 +20,10 @@ const DefaultInputField = ({
    onChange
 }: InputFieldProps) => {
     return (
-        <div className="flex-1 min-w-0">
+        <div className={`flex ${labelStyle === 'block' ? 'flex-col' : 'items-center'}`}>
             {label && (
                 <label className={`
-                    ${labelStyle === 'block' ? 'block mb-2' : ''}
+                    ${labelStyle === 'block' ? 'block mb-2' : 'mr-2'}
                 `}>
                     {label}
                 </label>
@@ -35,7 +35,7 @@ const DefaultInputField = ({
                 onChange={(e) => onChange(e.target.value)}
                 className={`
                 ${size === 'small' ? 'px-2 py-1' : 'px-4 py-3'}
-                ${fullWidth ? 'w-full' : ''} 
+                ${fullWidth ? 'w-full' : 'w-24'}
                 border rounded-xl
                 `}
             />

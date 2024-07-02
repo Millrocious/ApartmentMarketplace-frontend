@@ -6,8 +6,8 @@ interface ApartmentCardProps {
     apartment: Apartment
 }
 
-const ApartmentCard = ({ apartment }: ApartmentCardProps) => {
-    const { deleteApartment } = useApartmentContext();
+const ApartmentCard = ({apartment}: ApartmentCardProps) => {
+    const {deleteApartment} = useApartmentContext();
 
     const handleDelete = async () => {
         if (window.confirm(`Are you sure you want to delete ${apartment.name}?`)) {
@@ -21,12 +21,18 @@ const ApartmentCard = ({ apartment }: ApartmentCardProps) => {
 
     return (
         <div className="bg-white border p-4 rounded mb-4 flex justify-between items-center">
-      <span>
-        {apartment.name} / {apartment.rooms} {apartment.rooms === 1 ? 'room' : 'rooms'} /
-        ${apartment.price} / {apartment.description}
-      </span>
+            <div className="flex flex-col">
+                <span>
+                {apartment.name} / {apartment.rooms} {apartment.rooms === 1 ? 'room' : 'rooms'} /
+                ${apartment.price}
+                </span>
+                <span className="text-neutral-400">
+                     {apartment.description}
+                </span>
+            </div>
+
             <div className="space-x-4">
-                <SolidButton text="Delete" color="red" onClick={handleDelete} />
+                <SolidButton text="Delete" color="red" onClick={handleDelete}/>
             </div>
         </div>
     );
