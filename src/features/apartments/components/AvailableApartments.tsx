@@ -1,26 +1,29 @@
-import ApartmentCard from './ApartmentCard.tsx';
+import {ApartmentCard} from '../components';
+import ApartmentFilters from "./ApartmentFilters.tsx";
+import {useApartmentContext} from "../hooks/useApartmentContext.ts";
 
-const apartments = [
-    {title: 'Market square apartments', beds: 1, days: 2, price: 220},
-    {title: 'Sun Hotel', beds: 1, days: 1, price: 100},
-    {title: 'Cozy Room', beds: 1, days: 1, price: 20},
-];
 
 const AvailableApartments = () => {
+    const { apartments, roomFilter, setRoomFilter, sortOrder, setSortOrder } = useApartmentContext();
+
+    // Filter and sort apartments
+    const filteredAndSortedApartments = apartments
+        .filter(apt => roomFilter === '' || apt.rooms === parseInt(roomFilter))
+        .sort((a, b) => sortOrder === 'asc' ? a.price - b.price : b.price - a.price);
+
     return (
         <div>
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold">Available Apartments ({apartments.length})</h2>
-                <div>
-                    <label>Sort by: </label>
-                    <select className="border px-2 py-1 rounded">
-                        <option>Price: Highest First</option>
-                        <option>Price: Lowest First</option>
-                    </select>
-                </div>
+                <h2 className="text-xl font-semibold">Available Apartments ({filteredAndSortedApartments.length})</h2>
+                <ApartmentFilters
+                    roomFilter={roomFilter}
+                    onRoomFilterChange={setRoomFilter}
+                    sortOrder={sortOrder}
+                    onSortChange={setSortOrder}
+                />
             </div>
-            {apartments.map((apartment, index) => (
-                <ApartmentCard key={index} apartment={apartment}/>
+            {filteredAndSortedApartments.map((apartment) => (
+                <ApartmentCard key={apartment.id} apartment={apartment} />
             ))}
         </div>
     );
