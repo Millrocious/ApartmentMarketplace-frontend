@@ -40,6 +40,19 @@ export const ApartmentProvider = ({ children }: ReactNode) => {
         }
     };
 
+    const deleteApartment = async (id: string) => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            await ApartmentService.deleteApartment(id);
+            await fetchApartments();
+        } catch (err) {
+            setError('Failed to delete apartment');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const contextValue: ApartmentContextType = {
         apartments,
         addApartment,
@@ -49,7 +62,8 @@ export const ApartmentProvider = ({ children }: ReactNode) => {
         setSortOrder,
         isLoading,
         error,
-        refetchApartments: fetchApartments
+        refetchApartments: fetchApartments,
+        deleteApartment,
     };
 
     return (

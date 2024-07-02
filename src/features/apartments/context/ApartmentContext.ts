@@ -12,6 +12,7 @@ export interface ApartmentContextType {
     isLoading: boolean;
     error: string | null;
     refetchApartments: () => Promise<void>;
+    deleteApartment: (id: string) => Promise<void>;
 }
 
 export const ApartmentContext = createContext<ApartmentContextType | undefined>(undefined);
